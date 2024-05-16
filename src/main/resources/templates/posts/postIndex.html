@@ -18,17 +18,20 @@
 
     <h1>Welcome to Post Home Page</h1>
 
+    <a href="/posts/create" class = "btn btn-secondary"> Add New Post</a>
 
     <div class="row" th:each="post:${posts}">
-
         <div class="card">
             <div class="card-body">
                 <h5 class="card-title" th:text="${post.title}"></h5>
                 <h6 class="card-subtitle mb-2 text-body-secondary" th:text="${post.body}"></h6>
                 <p class="card-text" th:text="${post.description}">.</p>
+                <a th:href="@{'update/'+ ${post.id}}"> <button class = "btn btn-secondary">Update</button></a>
+
+                <a th:href="@{'delete/'+ ${post.id}}"> <button class = "btn btn-danger">Delete</button></a>
+
             </div>
         </div>
-
     </div>
 
 </div>

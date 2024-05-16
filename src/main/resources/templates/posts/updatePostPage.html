@@ -11,7 +11,7 @@
 
 
     <div class="row">
-        <form th:object="${newPost}" method="post">
+        <form th:object="${postNeedToUpdate}" method="post">
             <!--            <input type="text" placeholder="Title" th:field="${newPost.title}">-->
             <!--            <input type="text" placeholder="Body" th:field="${newPost.body}">-->
             <!--            <input type="text" placeholder="Discription" th:field="${newPost.discription}">-->
@@ -21,7 +21,7 @@
                 <label class="col-sm-2 col-form-label">Post Title</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" placeholder="Title" th:field="*{title}" required>
-                  <!--  <p th:if="${#fields.hasErrors('title')}" th:errors="*{title}" th:errorClass="text-danger"></p>-->
+                    <!--  <p th:if="${#fields.hasErrors('title')}" th:errors="*{title}" th:errorClass="text-danger"></p>-->
 
                 </div>
             </div>
@@ -30,7 +30,7 @@
                 <label class="col-sm-2 col-form-label">Post Body</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" placeholder="Body" th:field="*{body}">
-                   <!-- <p th:if="${#fields.hasErrors('body')}" th:errors="*{body}" th:errorClass="text-danger"></p>-->
+                    <!-- <p th:if="${#fields.hasErrors('body')}" th:errors="*{body}" th:errorClass="text-danger"></p>-->
                 </div>
             </div>
 
@@ -38,14 +38,11 @@
                 <label  class="col-sm-2 col-form-label">Post Description</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control"  placeholder="Description" th:field="*{description}">
-                 <!--   <p th:if="${#fields.hasErrors('description')}" th:errors="*{description}" th:errorClass="text-danger"></p>-->
+                    <!--   <p th:if="${#fields.hasErrors('description')}" th:errors="*{description}" th:errorClass="text-danger"></p>-->
                 </div>
             </div>
 
             <input type="submit" value="Submit">
-
-
-
             <!--<button type="submit">Submit</button>-->
 
 

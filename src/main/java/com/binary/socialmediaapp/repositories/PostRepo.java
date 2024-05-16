@@ -6,11 +6,13 @@ import org.springframework.stereotype.Repository;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Repository
 public class PostRepo {
     private final List<Post> posts = new ArrayList<>();
-
+    private int id=0;
     public PostRepo(){
         Post post = new Post();
         post.setTitle("Hello Spring MVC");
@@ -30,19 +32,39 @@ public class PostRepo {
         post2.setBody("Plain it");
         post2.setCreatedOn(LocalDateTime.now());
 
-        posts.add(post);
-        posts.add(post1);
-        posts.add(post2);
-
+        this.addPost(post);
+        this.addPost(post1);
+        this.addPost(post2);
     }
     public void addPost(Post post){
-
+        post.setId(id);
         posts.add(post);
-
+        id++;
     }
 
     public List<Post> getAllPosts(){
         return posts;
     }
 
+    public Optional<Post> getPostById(int id){
+        return posts.stream().filter(post -> post.getId()==id).findFirst();
+    }
+    
+    public void updatePost (Post updatedPost){
+        for (int i = 0; i < posts.size(); i++) {
+            if(posts.get(i).getId()==(updatedPost.getId())){
+                posts.set(i, updatedPost);
+                break;
+            }
+        }
+    }
+    public void removePostById(int id){
+        for (int i = 0; i < posts.size(); i++) {
+            if(posts.get(i).getId()==(id)){
+                posts.remove(i);
+                break;
+            }
+        }
+
+    }
 }

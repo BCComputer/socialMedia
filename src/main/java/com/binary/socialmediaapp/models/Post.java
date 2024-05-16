@@ -1,6 +1,7 @@
 package com.binary.socialmediaapp.models;
 
-import com.binary.socialmediaapp.enums.PostStatus;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -13,7 +14,9 @@ import java.util.List;
 public class Post {
     private int id;
     private String title;
+    @NotNull(message = "the description is required")
     private String description;
+    @NotNull(message = "the body is required")
     private String body;
     private String postStatus;
     private LocalDateTime createdOn;
