@@ -1,9 +1,12 @@
 package com.binary.socialmediaapp.controller;
 
+import com.binary.socialmediaapp.models.Comment;
 import com.binary.socialmediaapp.models.Post;
+import com.binary.socialmediaapp.services.CommentService;
 import com.binary.socialmediaapp.services.PostService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.apache.logging.log4j.message.Message;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -18,6 +21,7 @@ import java.util.Optional;
 public class PostController {
 
     private final PostService postService;
+    private final CommentService commentService;
 
     @GetMapping({"", "/list", "/postlist"})
     public String postPage(Model m) {
@@ -34,8 +38,6 @@ public class PostController {
     @PostMapping("/create")
     public String createPost(@ModelAttribute("newPost") Post newPost) {
         postService.addPost(newPost);
-        // postService.savePost(newPost);
-
         return "redirect:/posts/list";
     }
 
@@ -56,10 +58,10 @@ public class PostController {
     @PostMapping("/update/{id}")
     public String updatePost(@PathVariable("id") int id, @ModelAttribute("postNeedToUpdate") @Valid Post updatedPost, Errors errors) {
         if (errors.hasErrors()) {
-            System.out.println(errors.getAllErrors());
+            //System.out.println(errors.getAllErrors());
             return "posts/updatePostPage";
         }
-        System.out.println(updatedPost);
+      //  System.out.println(updatedPost);
         postService.updatePost(updatedPost);
         return "redirect:/posts/list";
     }
@@ -75,5 +77,52 @@ public class PostController {
         return "redirect:/posts/list";
     }
 
+    //////////////////////////////////////Comment Section /////////////////////////////////////
+
+    @PostMapping("/{id}/addComment")
+    public String createComment(@ModelAttribute("newPost") Comment comment, @PathVariable ("id") int id) {
+        commentService.addComment(id, comment);
+        return "redirect:/posts/list";
+    }
+    @GetMapping("/{id}/addComment")
+    public String createComment(Model model) {
+        model.addAttribute("newComment", new Comment());
+        return "posts/createComment";
+    }
+    @GetMapping("/deleteComment/{id}")
+    public String deleteCommentPage(@PathVariable("id") int id){
+        return "posts/deleteCommentPage";
+    }
+
+    @PostMapping("/deleteComment/{id}")
+    public String deleteCommentById(@PathVariable("id") int id) {
+        commentService.deleteCommentById(id);
+        return "redirect:/posts/list";
+    }
+
+    @GetMapping("/updateComment/{id}")
+    public String updateCommentPage(@PathVariable("id") int id, Model model) {
+        Optional<Comment> optionalComment = commentService.findById(id);
+        Comment updatedComment = null;
+        if (optionalComment.isPresent()) {
+            updatedComment = optionalComment.get();
+        } else {
+            return "redirect:/posts/List";
+        }
+        model.addAttribute("commentNeedToUpdate", updatedComment);
+        //System.out.println(updatedComment);
+        return "posts/updateCommentPage";
+    }
+
+    @PostMapping("/updateComment/{id}")
+    public String updateComment(@PathVariable("id") int id, @ModelAttribute("postNeedToUpdate") @Valid Comment updatedComment, Errors errors) {
+        if (errors.hasErrors()) {
+            //System.out.println(errors.getAllErrors());
+            return "posts/updateCommentPage";
+        }
+        //  System.out.println(updatedPost);
+        commentService.updateComment(updatedComment);
+        return "redirect:/posts/list";
+    }
 
 }

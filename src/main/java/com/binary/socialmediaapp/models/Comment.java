@@ -11,9 +11,9 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class Comment {
     private int id;
-    private String title;
+    private int postId;
     private String authorName;
-    private String body;
+    private String commentMessage;
     private LocalDateTime createdOn;
     private LocalDateTime updatedOn;
 }

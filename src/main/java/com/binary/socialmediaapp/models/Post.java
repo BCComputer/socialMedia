@@ -1,7 +1,6 @@
 package com.binary.socialmediaapp.models;
 
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 import lombok.*;
 
 import java.time.LocalDateTime;

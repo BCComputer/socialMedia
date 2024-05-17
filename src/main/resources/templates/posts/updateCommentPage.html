@@ -10,28 +10,20 @@
 <div class="container">
     <h1>This is Create Post Page</h1>
     <div class="row">
-        <form th:object="${postNeedToUpdate}" method="post">
+        <form th:object="${commentNeedToUpdate}" method="post">
             <div class="mb-3 row">
-                <label class="col-sm-2 col-form-label">Post Title</label>
+                <label class="col-sm-2 col-form-label">Comment </label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" placeholder="Title" th:field="*{title}" required>
+                    <input type="text" class="form-control" placeholder="Title" th:field="*{commentMessage}" required>
                 </div>
             </div>
 
             <div class="mb-3 row">
-                <label class="col-sm-2 col-form-label">Post Body</label>
+                <label class="col-sm-2 col-form-label">Author Name</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" placeholder="Body" th:field="*{body}">
+                    <input type="text" class="form-control" placeholder="Body" th:field="*{authorName}">
                 </div>
             </div>
-
-            <div class="mb-3 row">
-                <label class="col-sm-2 col-form-label">Post Description</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" placeholder="Description" th:field="*{description}">
-                </div>
-            </div>
-
             <input type="submit" value="Submit">
         </form>
     </div>
